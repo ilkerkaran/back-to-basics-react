@@ -2,7 +2,6 @@ import React from 'react';
 import css from './Layout.css';
 
 const layout = props => {
-  console.log(css);
   const { children } = props;
   return (
     // <React.Fragment>
