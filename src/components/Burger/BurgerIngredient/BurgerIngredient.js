@@ -1,33 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import cssClass from './BurgerIngredient.css';
+import './BurgerIngredient.css';
 
 const burgerIngredient = props => {
   const { type } = props;
   let ingredient = null;
   switch (type) {
     case 'bread-bottom':
-      ingredient = <div className={cssClass.BreadBottom} />;
+      ingredient = <div className="BreadBottom" />;
       break;
     case 'bread-top':
       ingredient = (
-        <div className={cssClass.BreadTop}>
-          <div className={cssClass.Seeds1} />
-          <div className={cssClass.Seeds2} />
+        <div className="BreadTop">
+          <div className="Seed1" />
+          <div className="Seed2" />
         </div>
       );
       break;
     case 'salad':
-      ingredient = <div className={cssClass.Salad} />;
+      ingredient = <div className="Salad" />;
       break;
     case 'meat':
-      ingredient = <div className={cssClass.Meat} />;
+      ingredient = <div className="Meat" />;
       break;
     case 'cheese':
-      ingredient = <div className={cssClass.Cheese} />;
+      ingredient = <div className="Cheese" />;
       break;
     case 'bacon':
-      ingredient = <div className={cssClass.Bacon} />;
+      ingredient = <div className="Bacon" />;
       break;
     default:
       break;

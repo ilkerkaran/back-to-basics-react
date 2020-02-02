@@ -1,11 +1,17 @@
 {
   "extends": ["airbnb", "plugin:prettier/recommended", "prettier/react"],
+  "parser": "babel-eslint",
   "env": {
     "browser": true,
     "commonjs": true,
     "es6": true,
     "jest": true,
     "node": true
+  },
+  "settings": {
+    "import/resolver": {
+      "webpack": { "config": "config/webpack.config.js" }
+    }
   },
   "rules": {
     "jsx-a11y/href-no-hash": ["off"],
@@ -26,6 +32,10 @@
     ],
     "react/prop-types": [2, { "ignore": ["children"] }],
     "react/prefer-stateless-function": "off",
-    "no-useless-constructor": "warn"
+    "no-useless-constructor": "warn",
+    "react/no-array-index-key": "warn",
+    "react/forbid-prop-types": "warn",
+    "react/destructuring-assignment": "off",
+    "import/no-named-as-default": "off"
   }
 }
