@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import cssClass from './BuildControl.css';
+import './BuildControl.css';
 
 const buildControl = props => {
-  const { label } = props;
+  const { label, disabled } = props;
 
   const handleMoreClick = () => {
     props.onMoreClick(props.type);
@@ -14,20 +14,17 @@ const buildControl = props => {
   };
   return (
     <div>
-      <div className={cssClass.BuildControl}>
-        <div className={cssClass.Label}>{label}</div>
+      <div className="BuildControl">
+        <div className="Label">{label}</div>
         <button
-          className={cssClass.Less}
+          disabled={disabled}
+          className="Less"
           type="button"
           onClick={handleLessClick}
         >
           Less
         </button>
-        <button
-          className={cssClass.More}
-          type="button"
-          onClick={handleMoreClick}
-        >
+        <button className="More" type="button" onClick={handleMoreClick}>
           More
         </button>
       </div>
@@ -41,5 +38,6 @@ buildControl.propTypes = {
   label: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   onMoreClick: PropTypes.func.isRequired,
-  onLessClick: PropTypes.func.isRequired
+  onLessClick: PropTypes.func.isRequired,
+  disabled: PropTypes.bool.isRequired
 };
