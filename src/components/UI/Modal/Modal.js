@@ -2,7 +2,7 @@ import React from 'react';
 
 import './Modal.css';
 import PropTypes from 'prop-types';
-import Backdrop from './../Backdrop/Backdrop';
+import Backdrop from '../Backdrop/Backdrop';
 
 const modal = props => (
   <>
@@ -10,7 +10,7 @@ const modal = props => (
     <div
       className="Modal"
       style={{
-        transform: props.show ? 'translateX(0)' : 'translateX(-10000)',
+        transform: props.show ? 'translateY(0)' : 'translateY(-100vh)',
         opacity: props.show ? '1' : '0'
       }}
     >

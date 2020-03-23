@@ -25,16 +25,14 @@ const buildControls = props => {
       </p>
       {controls.map(c => {
         return (
-          <>
-            <BuildControl
-              key={c.label}
-              label={c.label}
-              type={c.type}
-              onLessClick={onLessClick}
-              onMoreClick={onMoreClick}
-              disabled={!enabled[c.type]}
-            />
-          </>
+          <BuildControl
+            key={c.label}
+            label={c.label}
+            type={c.type}
+            onLessClick={onLessClick}
+            onMoreClick={onMoreClick}
+            disabled={!enabled[c.type]}
+          />
         );
       })}
       <button
