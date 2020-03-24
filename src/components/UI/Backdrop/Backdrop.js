@@ -4,7 +4,7 @@ import './Backdrop.css';
 
 const backdrop = props => {
   return props.show ? (
-    <div className="Backdrop" onClick={props.cancelPurchasing}>
+    <div className="Backdrop" onClick={props.onClick}>
       {' '}
     </div>
   ) : null;
@@ -14,5 +14,5 @@ export default backdrop;
 
 backdrop.propTypes = {
   show: PropTypes.bool.isRequired,
-  cancelPurchasing: PropTypes.func.isRequired
+  onClick: PropTypes.func.isRequired
 };

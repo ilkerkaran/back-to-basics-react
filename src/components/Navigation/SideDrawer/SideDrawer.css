@@ -23,6 +23,11 @@ transition: transform 0.3s ease-out;
   transform: translateX(0);
 }
 
-.CLose {
-  transform: translateX(-100);
+.Close {
+  transform: translateX(-100%);
 }
+
+ .side-drawer-logo{
+  height: 11%;
+  margin-bottom:32px;
+  }
