@@ -65,7 +65,11 @@ class BurgerBuilder extends React.Component {
     return (
       <>
         <Modal show={purchasing} cancelPurchasing={this.cancelPurchase}>
-          <OrderSummary ingredients={ingredients} totalPrice={totalPrice} />
+          <OrderSummary
+            onCancel={this.cancelPurchase}
+            ingredients={ingredients}
+            totalPrice={totalPrice}
+          />
         </Modal>
         <Burger ingredients={ingredients} />
 

@@ -2,6 +2,7 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 import Button from '../../UI/Button/Button';
+import BurgerIngredient from '../BurgerIngredient/BurgerIngredient';
 
 const orderSummary = props => {
   const ingredientSummary = Object.keys(props.ingredients).map(igKey => {
@@ -18,8 +19,12 @@ const orderSummary = props => {
       <ul>{ingredientSummary}</ul>
       <strong>Price: {props.totalPrice}</strong>
       <p>Continue to checkout?</p>
-      <Button buttonType="Danger">CANCEL</Button>
-      <Button buttonType="Success">CONTINUE</Button>
+      <Button onClick={props.onCancel} buttonType="Danger">
+        CANCEL
+      </Button>
+      <Button onClick={() => alert('wow you did it!')} buttonType="Success">
+        CONTINUE
+      </Button>
     </>
   );
 };
@@ -27,6 +32,7 @@ const orderSummary = props => {
 export default orderSummary;
 
 orderSummary.propTypes = {
-  ingredients: PropTypes.object.isRequired,
-  totalPrice: PropTypes.number.isRequired
+  ingredients: PropTypes.instanceOf(BurgerIngredient).isRequired,
+  totalPrice: PropTypes.number.isRequired,
+  onCancel: PropTypes.func.isRequired
 };

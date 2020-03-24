@@ -2,6 +2,7 @@ import React from 'react';
 
 import './Button.css';
 import PropTypes from 'prop-types';
+
 const button = props => {
   return (
     <button
@@ -16,5 +17,6 @@ const button = props => {
 export default button;
 
 button.propTypes = {
-  buttonType: PropTypes.string.isRequired
+  buttonType: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired
 };

@@ -28,8 +28,8 @@ class Burger extends React.Component {
         {tIngredients.length > 0 ? (
           tIngredients
         ) : (
-          <p>Please start adding ingredients!</p>
-        )}
+            <p>Please start adding ingredients!</p>
+          )}
         <BurgerIngredient type="bread-bottom" />
       </div>
     );
@@ -39,5 +39,5 @@ class Burger extends React.Component {
 export default Burger;
 
 Burger.propTypes = {
-  ingredients: PropTypes.object.isRequired
+  ingredients: PropTypes.instanceOf(BurgerIngredient).isRequired
 };
