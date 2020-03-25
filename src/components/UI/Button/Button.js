@@ -3,16 +3,14 @@ import React from 'react';
 import './Button.css';
 import PropTypes from 'prop-types';
 
-const button = props => {
-  return (
+const button = (props) => (
     <button
       className={['Button', props.buttonType].join(' ')}
       onClick={props.onClick}
     >
       {props.children}
     </button>
-  );
-};
+);
 
 export default button;
 

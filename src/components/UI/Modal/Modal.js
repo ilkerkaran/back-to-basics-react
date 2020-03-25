@@ -1,16 +1,12 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 import './Modal.css';
 import PropTypes from 'prop-types';
 import Backdrop from '../Backdrop/Backdrop';
 
-class Modal extends Component {
+class Modal extends PureComponent {
   constructor(props) {
     super(props);
-  }
-
-  shouldComponentUpdate(nextprops) {
-    return nextprops.show !== this.props.show;
   }
 
   render() {
@@ -18,7 +14,7 @@ class Modal extends Component {
       <>
         <Backdrop
           show={this.props.show}
-          onClick={this.props.cancelPurchasing}
+          onClick={this.props.onClose}
         />
         <div
           className="Modal"
@@ -37,5 +33,5 @@ export default Modal;
 
 Modal.propTypes = {
   show: PropTypes.bool.isRequired,
-  cancelPurchasing: PropTypes.func.isRequired
+  onClose: PropTypes.func.isRequired
 };

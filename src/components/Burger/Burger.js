@@ -10,17 +10,12 @@ class Burger extends React.Component {
 
   render() {
     const { ingredients } = this.props;
-    console.log(this.props);
     const tIngredients = Object.keys(ingredients)
-      .map(igKey => {
-        return [...Array(ingredients[igKey])].map((tmpObj, index) => {
-          const myI = index * -1;
-          return <BurgerIngredient key={`${igKey}${myI}`} type={igKey} />;
-        });
-      })
-      .reduce((arr, el) => {
-        return arr.concat(el);
-      }, []);
+      .map((igKey) => [...Array(ingredients[igKey])].map((tmpObj, index) => {
+        const myI = index * -1;
+        return <BurgerIngredient key={`${igKey}${myI}`} type={igKey} />;
+      }))
+      .reduce((arr, el) => arr.concat(el), []);
 
     return (
       <div className="Burger">
@@ -29,7 +24,7 @@ class Burger extends React.Component {
           tIngredients
         ) : (
             <p>Please start adding ingredients!</p>
-          )}
+        )}
         <BurgerIngredient type="bread-bottom" />
       </div>
     );

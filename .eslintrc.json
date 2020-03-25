@@ -1,9 +1,7 @@
 {
   "extends": [
     "airbnb-base",
-    "plugin:prettier/recommended",
-    "plugin:react/recommended",
-    "prettier/react"
+    "plugin:react/recommended"
   ],
   "parser": "babel-eslint",
   "env": {
@@ -14,8 +12,18 @@
     "node": true
   },
   "rules": {
-    "jsx-a11y/href-no-hash": ["off"],
-    "react/jsx-filename-extension": ["warn", { "extensions": [".js", ".jsx"] }],
+    "jsx-a11y/href-no-hash": [
+      "off"
+    ],
+    "react/jsx-filename-extension": [
+      "warn",
+      {
+        "extensions": [
+          ".js",
+          ".jsx"
+        ]
+      }
+    ],
     "max-len": [
       "warn",
       {
@@ -30,12 +38,23 @@
         "ignoreRegExpLiterals": true
       }
     ],
-    "react/prop-types": [2, { "ignore": ["children"] }],
+    "react/prop-types": [
+      2,
+      {
+        "ignore": [
+          "children"
+        ]
+      }
+    ],
     "react/prefer-stateless-function": "off",
     "no-useless-constructor": "warn",
     "react/no-array-index-key": "warn",
     "react/forbid-prop-types": "warn",
     "react/destructuring-assignment": "off",
-    "import/no-named-as-default": "off"
+    "import/no-named-as-default": "off",
+    "comma-dangle": [
+      "error",
+      "never"
+    ]
   }
 }

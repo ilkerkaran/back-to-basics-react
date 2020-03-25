@@ -10,7 +10,7 @@ const controls = [
   { label: 'Meat', type: 'meat' }
 ];
 
-const buildControls = props => {
+const buildControls = (props) => {
   const {
     onMoreClick,
     onLessClick,
@@ -23,8 +23,7 @@ const buildControls = props => {
       <p>
         Current Price: <b>${currentPrice}</b>
       </p>
-      {controls.map(c => {
-        return (
+      {controls.map((c) => (
           <BuildControl
             key={c.label}
             label={c.label}
@@ -33,8 +32,7 @@ const buildControls = props => {
             onMoreClick={onMoreClick}
             disabled={!enabled[c.type]}
           />
-        );
-      })}
+      ))}
       <button
         disabled={!purchasable}
         className="OrderButton"
