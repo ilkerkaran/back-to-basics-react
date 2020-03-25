@@ -7,28 +7,37 @@ import axios from '../../axios-orders';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler';
 
-const INGREDIENT_PRICES = {
-  salad: 0.5,
-  bacon: 0.8,
-  meat: 2,
-  cheese: 0.5
-};
-
-const INITIAL_INGREDIENTS = {
-  salad: 0, bacon: 0, cheese: 0, meat: 0
-};
 
 class BurgerBuilder extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      ingredients: { ...INITIAL_INGREDIENTS },
+      ingredients: {},
+      ingredientPrices: {},
       totalPrice: 4,
-      purchasable: INITIAL_INGREDIENTS.meat > 0,
+      purchasable: false,
       purchasing: false,
       isOrderprocessing: false,
       snackMessage: ''
     };
+  }
+
+  componentDidMount() {
+    axios.get('/ingredient-prices.json').then((priceResponse) => {
+      axios.get('/ingredients.json').then((response) => {
+        const initialIngredients = { ...response.data };
+
+
+        const total = Object.keys(initialIngredients).reduce((init, type) => init + initialIngredients[type] * priceResponse.data[type], this.state.totalPrice);
+
+        this.setState({
+          ingredients: initialIngredients,
+          ingredientPrices: { ...priceResponse.data },
+          purchasable: initialIngredients.meat > 0,
+          totalPrice: total
+        });
+      });
+    });
   }
 
   purchaseHandler = () => {
@@ -59,7 +68,7 @@ class BurgerBuilder extends React.Component {
 
     this.setState((prevState) => ({
       ingredients: updatedIngredients,
-      totalPrice: prevState.totalPrice + INGREDIENT_PRICES[type],
+      totalPrice: prevState.totalPrice + this.state.ingredientPrices[type],
       purchasable: updatedIngredients.meat > 0
     }));
   };
@@ -70,7 +79,7 @@ class BurgerBuilder extends React.Component {
       updatedIngredients[type] -= 1;
       this.setState((prevState) => ({
         ingredients: { ...updatedIngredients },
-        totalPrice: prevState.totalPrice - INGREDIENT_PRICES[type],
+        totalPrice: prevState.totalPrice - this.state.ingredientPrices[type],
         purchasable: updatedIngredients.meat > 0
       }));
     }
