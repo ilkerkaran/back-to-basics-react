@@ -2,13 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './Backdrop.css';
 
-const backdrop = props => {
-  return props.show ? (
+const backdrop = (props) => (props.show ? (
     <div className="Backdrop" onClick={props.onClick}>
       {' '}
     </div>
-  ) : null;
-};
+) : null);
 
 export default backdrop;
 

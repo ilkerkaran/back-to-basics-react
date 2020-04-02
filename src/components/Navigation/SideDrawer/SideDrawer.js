@@ -5,7 +5,7 @@ import Logo from '../../Logo/Logo';
 import NavigaitonItems from '../NavigationItems/NavgitaionItems';
 import Backdrop from '../../UI/Backdrop/Backdrop';
 
-const sideDrawer = props => {
+const sideDrawer = (props) => {
   const sideDrawerClass = `SideDrawer ${props.open ? 'Open' : 'Close'}`;
   return (
     <>

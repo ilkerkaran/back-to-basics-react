@@ -52,6 +52,7 @@
     "react/forbid-prop-types": "warn",
     "react/destructuring-assignment": "warn",
     "import/no-named-as-default": "off",
+    "no-use-before-define":"off",
     "comma-dangle": [
       "error",
       "never"

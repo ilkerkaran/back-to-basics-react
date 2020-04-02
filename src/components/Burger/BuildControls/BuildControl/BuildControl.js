@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './BuildControl.css';
 
-const buildControl = props => {
+const buildControl = (props) => {
   const { label, disabled } = props;
 
   const handleMoreClick = () => {

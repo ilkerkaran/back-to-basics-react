@@ -5,7 +5,7 @@ import './Toolbar.css';
 import NavigaitonItems from '../NavigationItems/NavgitaionItems';
 import DrawerToggle from '../SideDrawer/DrawerToggle/DrawerToggle';
 
-const toolbar = props => (
+const toolbar = (props) => (
   <header className="Toolbar">
     <DrawerToggle onClick={props.onDrawerToggleClick} />
     <div className="toolbar-logo">

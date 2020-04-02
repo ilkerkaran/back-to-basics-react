@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './DrawerToggle.css';
 
-const drawerToggle = props => (
+const drawerToggle = (props) => (
   <div className="DrawerToggle" onClick={props.onClick}>
     <div></div>
     <div></div>
