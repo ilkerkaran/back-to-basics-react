@@ -46,11 +46,11 @@
         ]
       }
     ],
-    "react/prefer-stateless-function": "off",
+    "react/prefer-stateless-function": "warn",
     "no-useless-constructor": "warn",
     "react/no-array-index-key": "warn",
     "react/forbid-prop-types": "warn",
-    "react/destructuring-assignment": "off",
+    "react/destructuring-assignment": "warn",
     "import/no-named-as-default": "off",
     "comma-dangle": [
       "error",

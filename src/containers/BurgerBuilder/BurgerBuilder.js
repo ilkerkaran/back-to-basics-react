@@ -17,8 +17,7 @@ class BurgerBuilder extends React.Component {
       totalPrice: 4,
       purchasable: false,
       purchasing: false,
-      isOrderprocessing: false,
-      snackMessage: ''
+      isOrderprocessing: false
     };
   }
 
@@ -27,8 +26,8 @@ class BurgerBuilder extends React.Component {
       axios.get('/ingredients.json').then((response) => {
         const initialIngredients = { ...response.data };
 
-
-        const total = Object.keys(initialIngredients).reduce((init, type) => init + initialIngredients[type] * priceResponse.data[type], this.state.totalPrice);
+        const total = Object.keys(initialIngredients)
+          .reduce((init, type) => init + initialIngredients[type] * priceResponse.data[type], this.state.totalPrice);
 
         this.setState({
           ingredients: initialIngredients,
@@ -97,13 +96,13 @@ class BurgerBuilder extends React.Component {
     return (
       <>
         <Modal show={purchasing} onClose={this.cancelPurchaseHandler}>
-        {isOrderprocessing ? <Spinner />
-          : <OrderSummary
-            onCancel={this.cancelPurchaseHandler}
-            onContinue={this.continuePurchaseHandler}
-            ingredients={ingredients}
-            totalPrice={totalPrice}
-          />}
+          {isOrderprocessing ? <Spinner />
+            : <OrderSummary
+              onCancel={this.cancelPurchaseHandler}
+              onContinue={this.continuePurchaseHandler}
+              ingredients={ingredients}
+              totalPrice={totalPrice}
+            />}
         </Modal>
         <Burger ingredients={ingredients} />
 
