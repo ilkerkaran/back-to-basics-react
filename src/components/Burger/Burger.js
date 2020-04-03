@@ -3,21 +3,16 @@ import PropTypes from 'prop-types';
 import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
 import './Burger.css';
 
-class Burger extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+const burger = (props) => {
+  const { ingredients } = props;
+  const tIngredients = Object.keys(ingredients)
+    .map((igKey) => [...Array(ingredients[igKey])].map((tmpObj, index) => {
+      const myI = index * -1;
+      return <BurgerIngredient key={`${igKey}${myI}`} type={igKey} />;
+    }))
+    .reduce((arr, el) => arr.concat(el), []);
 
-  render() {
-    const { ingredients } = this.props;
-    const tIngredients = Object.keys(ingredients)
-      .map((igKey) => [...Array(ingredients[igKey])].map((tmpObj, index) => {
-        const myI = index * -1;
-        return <BurgerIngredient key={`${igKey}${myI}`} type={igKey} />;
-      }))
-      .reduce((arr, el) => arr.concat(el), []);
-
-    return (
+  return (
       <div className="Burger">
         <BurgerIngredient type="bread-top" />
         {tIngredients.length > 0 ? (
@@ -27,12 +22,11 @@ class Burger extends React.Component {
         )}
         <BurgerIngredient type="bread-bottom" />
       </div>
-    );
-  }
-}
+  );
+};
 
-export default Burger;
+export default burger;
 
-Burger.propTypes = {
+burger.propTypes = {
   ingredients: PropTypes.instanceOf(BurgerIngredient).isRequired
 };

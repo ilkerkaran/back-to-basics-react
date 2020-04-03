@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
@@ -6,117 +6,108 @@ import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import axios from '../../axios-orders';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler';
+import { getIngredientsWithPrice, postOrder } from '../../services/ingredientsService';
+import { routerTypes } from '../../propTypes/types';
 
 
-class BurgerBuilder extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ingredients: {},
-      ingredientPrices: {},
-      totalPrice: 4,
-      purchasable: false,
-      purchasing: false,
-      isOrderprocessing: false
-    };
-  }
-
-  componentDidMount() {
-    axios.get('/ingredient-prices.json').then((priceResponse) => {
-      axios.get('/ingredients.json').then((response) => {
-        const initialIngredients = { ...response.data };
-
-        const total = Object.keys(initialIngredients)
-          .reduce((init, type) => init + initialIngredients[type] * priceResponse.data[type], this.state.totalPrice);
-
-        this.setState({
-          ingredients: initialIngredients,
-          ingredientPrices: { ...priceResponse.data },
-          purchasable: initialIngredients.meat > 0,
-          totalPrice: total
-        });
-      });
-    });
-  }
-
-  purchaseHandler = () => {
-    this.setState({ purchasing: true });
+const burgerBuilder = (props) => {
+  const [ingredients, setIngredients] = useState([]);
+  const [ingredientPrices, setIngredientPrices] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [purchasable, setPurchasable] = useState(false);
+  const [purchasing, setPurchasing] = useState(false);
+  const [isOrderprocessing, setIsOrderprocessing] = useState(false);
+  const purchaseHandler = () => {
+    setPurchasing(true);
   };
 
-  continuePurchaseHandler = () => {
-    this.setState({ isOrderprocessing: true });
+  const continuePurchaseHandler = () => {
+    const { history } = props;
+    history.push({
+      pathname: '/checkout',
+      state: ingredients
+    });
+
+    setIsOrderprocessing(true);
     const order = { ...this.state, name: 'John', address: { country: 'UK' } };
-    axios.post('/orders.json', order)
+    postOrder(order)
       .then((response) => {
         console.log('orders-response: ', response);
-        this.setState({ purchasing: false });
+        setPurchasing(false);
       })
       .catch((err) => console.log('orders-err: ', err))
       .finally(() => {
-        this.setState({ isOrderprocessing: false });
+        setIsOrderprocessing(false);
       });
   };
 
-  cancelPurchaseHandler = () => {
-    this.setState({ purchasing: false });
+  const cancelPurchaseHandler = () => {
+    setPurchasing(false);
   };
 
-  addIngredientHandler = (type) => {
-    const updatedIngredients = { ...this.state.ingredients };
+  const addIngredientHandler = (type) => {
+    const updatedIngredients = { ...ingredients };
     updatedIngredients[type] += 1;
 
-    this.setState((prevState) => ({
-      ingredients: updatedIngredients,
-      totalPrice: prevState.totalPrice + this.state.ingredientPrices[type],
-      purchasable: updatedIngredients.meat > 0
-    }));
+    setIngredients(updatedIngredients);
+    setPurchasable(updatedIngredients.meat > 0);
+    setTotalPrice(totalPrice + ingredientPrices[type]);
   };
 
-  removeIngredientHandler = (type) => {
-    const updatedIngredients = { ...this.state.ingredients };
+  const removeIngredientHandler = (type) => {
+    const updatedIngredients = { ...ingredients };
     if (updatedIngredients[type] > 0) {
       updatedIngredients[type] -= 1;
-      this.setState((prevState) => ({
-        ingredients: { ...updatedIngredients },
-        totalPrice: prevState.totalPrice - this.state.ingredientPrices[type],
-        purchasable: updatedIngredients.meat > 0
-      }));
+
+      setIngredients(updatedIngredients);
+      setPurchasable(updatedIngredients.meat > 0);
+      setTotalPrice(totalPrice - ingredientPrices[type]);
     }
   };
 
-  render() {
-    const enabledInfo = { ...this.state.ingredients };
+
+  useEffect(async () => {
+    console.log('BurgerBuilder.props', props);
+
     const {
-      totalPrice, purchasable, purchasing, isOrderprocessing
-    } = this.state;
-    Object.keys(enabledInfo).forEach((key) => {
-      enabledInfo[key] = enabledInfo[key] > 0;
-    });
-    const { ingredients } = this.state;
-    return (
-      <>
-        <Modal show={purchasing} onClose={this.cancelPurchaseHandler}>
-          {isOrderprocessing ? <Spinner />
-            : <OrderSummary
-              onCancel={this.cancelPurchaseHandler}
-              onContinue={this.continuePurchaseHandler}
-              ingredients={ingredients}
-              totalPrice={totalPrice}
-            />}
-        </Modal>
-        <Burger ingredients={ingredients} />
+      ingredients: newIngredients,
+      ingredientPrices: newIngredientPrices,
+      totalPrice: newTotalPrice
+    } = await getIngredientsWithPrice(totalPrice);
+    setIngredients(newIngredients);
+    setIngredientPrices(newIngredientPrices);
+    setTotalPrice(newTotalPrice);
+    setPurchasable(ingredients.meat > 0);
+  }, []);
 
-        <BuildControls
-          onLessClick={this.removeIngredientHandler}
-          onMoreClick={this.addIngredientHandler}
-          enabled={enabledInfo}
-          currentPrice={totalPrice}
-          purchasable={purchasable}
-          onPurcaseClick={this.purchaseHandler}
-        />
-      </>
-    );
-  }
-}
+  return (
+    <>
+      <Modal show={purchasing} onClose={cancelPurchaseHandler}>
+        {isOrderprocessing ? <Spinner />
+          : <OrderSummary
+            onCancel={cancelPurchaseHandler}
+            onContinue={continuePurchaseHandler}
+            ingredients={ingredients}
+            totalPrice={totalPrice}
+          />}
+      </Modal>
+      <Burger ingredients={ingredients} />
 
-export default withErrorHandler(BurgerBuilder, axios);
+      <BuildControls
+        onLessClick={removeIngredientHandler}
+        onMoreClick={addIngredientHandler}
+        enabled={ingredients}
+        currentPrice={totalPrice}
+        purchasable={purchasable}
+        onPurcaseClick={purchaseHandler}
+      />
+    </>
+  );
+};
+
+
+export default withErrorHandler(burgerBuilder, axios);
+
+burgerBuilder.propTypes = {
+  ...routerTypes
+};
