@@ -15,6 +15,9 @@ export const routerTypes = (
 export const ingredientTypes = {
 
   ingredients: PropTypes.shape({
-    bacon: PropTypes.number, cheese: PropTypes.number, salad: PropTypes.number, meat: PropTypes.number
+    bacon: PropTypes.number,
+    cheese: PropTypes.number,
+    salad: PropTypes.number,
+    meat: PropTypes.number
   }).isRequired
 };
