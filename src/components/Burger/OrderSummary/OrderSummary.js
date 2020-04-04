@@ -2,7 +2,7 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 import Button from '../../UI/Button/Button';
-import BurgerIngredient from '../BurgerIngredient/BurgerIngredient';
+import { ingredientTypes } from '../../../propTypes/types';
 
 const orderSummary = (props) => {
   const ingredientSummary = Object.keys(props.ingredients).map((igKey) => (
@@ -30,8 +30,8 @@ const orderSummary = (props) => {
 export default orderSummary;
 
 orderSummary.propTypes = {
-  ingredients: PropTypes.instanceOf(BurgerIngredient),
   totalPrice: PropTypes.number.isRequired,
   onCancel: PropTypes.func.isRequired,
-  onContinue: PropTypes.func.isRequired
+  onContinue: PropTypes.func.isRequired,
+  ...ingredientTypes
 };

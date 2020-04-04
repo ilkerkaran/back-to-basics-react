@@ -2,10 +2,9 @@
 
 import React from 'react';
 import './CheckoutSummary.css';
-import { PropTypes } from 'prop-types';
 import Burger from '../../Burger/Burger';
-import BurgerIngredient from '../../Burger/BurgerIngredient/BurgerIngredient';
 import Button from '../../UI/Button/Button';
+import { ingredientTypes } from '../../../propTypes/types';
 
 const checkoutSummary = (props) => {
   const { ingredients } = props;
@@ -21,8 +20,9 @@ const checkoutSummary = (props) => {
   return (
     <>
     <div className ="CheckoutSummary">
+    <h1>We hope you enjoy your meal!&#128523;</h1>
       <Burger ingredients={ingredients}/>
-      <div>
+      <div className="CheckoutSummaryButtons">
       <Button
         key="danger"
         buttonType="Danger"
@@ -44,5 +44,5 @@ const checkoutSummary = (props) => {
 export default checkoutSummary;
 
 checkoutSummary.propTypes = {
-  ingredients: PropTypes.instanceOf(BurgerIngredient).isRequired
+  ...ingredientTypes
 };

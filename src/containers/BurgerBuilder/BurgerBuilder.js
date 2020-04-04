@@ -6,17 +6,19 @@ import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import axios from '../../axios-orders';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler';
-import { getIngredientsWithPrice, postOrder } from '../../services/ingredientsService';
+import { getIngredientsWithPrice } from '../../services/ingredientsService';
 import { routerTypes } from '../../propTypes/types';
 
 
 const burgerBuilder = (props) => {
-  const [ingredients, setIngredients] = useState([]);
+  const [ingredients, setIngredients] = useState({});
   const [ingredientPrices, setIngredientPrices] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [purchasable, setPurchasable] = useState(false);
   const [purchasing, setPurchasing] = useState(false);
+  // eslint-disable-next-line no-unused-vars
   const [isOrderprocessing, setIsOrderprocessing] = useState(false);
+
   const purchaseHandler = () => {
     setPurchasing(true);
   };
@@ -28,17 +30,17 @@ const burgerBuilder = (props) => {
       state: ingredients
     });
 
-    setIsOrderprocessing(true);
-    const order = { ...this.state, name: 'John', address: { country: 'UK' } };
-    postOrder(order)
-      .then((response) => {
-        console.log('orders-response: ', response);
-        setPurchasing(false);
-      })
-      .catch((err) => console.log('orders-err: ', err))
-      .finally(() => {
-        setIsOrderprocessing(false);
-      });
+    // setIsOrderprocessing(true);
+    // const order = { ...this.state, name: 'John', address: { country: 'UK' } };
+    // postOrder(order)
+    //   .then((response) => {
+    //     console.log('orders-response: ', response);
+    //     setPurchasing(false);
+    //   })
+    //   .catch((err) => console.log('orders-err: ', err))
+    //   .finally(() => {
+    //     setIsOrderprocessing(false);
+    //   });
   };
 
   const cancelPurchaseHandler = () => {
@@ -66,18 +68,18 @@ const burgerBuilder = (props) => {
   };
 
 
-  useEffect(async () => {
-    console.log('BurgerBuilder.props', props);
-
-    const {
-      ingredients: newIngredients,
-      ingredientPrices: newIngredientPrices,
-      totalPrice: newTotalPrice
-    } = await getIngredientsWithPrice(totalPrice);
-    setIngredients(newIngredients);
-    setIngredientPrices(newIngredientPrices);
-    setTotalPrice(newTotalPrice);
-    setPurchasable(ingredients.meat > 0);
+  useEffect(() => {
+    (async () => {
+      const {
+        ingredients: newIngredients,
+        ingredientPrices: newIngredientPrices,
+        totalPrice: newTotalPrice
+      } = await getIngredientsWithPrice(totalPrice);
+      setIngredients(newIngredients);
+      setIngredientPrices(newIngredientPrices);
+      setTotalPrice(newTotalPrice);
+      setPurchasable(ingredients.meat > 0);
+    })();
   }, []);
 
   return (

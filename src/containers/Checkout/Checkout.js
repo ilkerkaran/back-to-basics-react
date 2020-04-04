@@ -1,21 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary';
 import { routerTypes } from '../../propTypes/types';
-import { getIngredientsWithPrice } from '../../services/ingredientsService';
 
 
 const checkout = (props) => {
-  console.log('checkout.props', props);
-  const [ingredients, setIngredients] = useState([]);
+  const { location: { state } } = props;
 
-  useEffect(async () => {
-    const { ingredients: ingredientsRes } = await getIngredientsWithPrice(0);
-    setIngredients(ingredientsRes);
-  }, []);
+
+  console.log('checkout.props', state);
 
 
   return (<><div>
-  <CheckoutSummary ingredients={ingredients} />
+  <CheckoutSummary ingredients={state} />
   </div></>);
 };
 

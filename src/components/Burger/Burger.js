@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { ingredientTypes } from '../../propTypes/types';
 import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
 import './Burger.css';
 
@@ -28,5 +28,5 @@ const burger = (props) => {
 export default burger;
 
 burger.propTypes = {
-  ingredients: PropTypes.instanceOf(BurgerIngredient).isRequired
+  ...ingredientTypes
 };
