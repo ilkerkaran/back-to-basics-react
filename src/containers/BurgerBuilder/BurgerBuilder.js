@@ -27,20 +27,8 @@ const burgerBuilder = (props) => {
     const { history } = props;
     history.push({
       pathname: '/checkout',
-      state: ingredients
+      state: { ingredients, totalPrice }
     });
-
-    // setIsOrderprocessing(true);
-    // const order = { ...this.state, name: 'John', address: { country: 'UK' } };
-    // postOrder(order)
-    //   .then((response) => {
-    //     console.log('orders-response: ', response);
-    //     setPurchasing(false);
-    //   })
-    //   .catch((err) => console.log('orders-err: ', err))
-    //   .finally(() => {
-    //     setIsOrderprocessing(false);
-    //   });
   };
 
   const cancelPurchaseHandler = () => {
@@ -74,7 +62,7 @@ const burgerBuilder = (props) => {
         ingredients: newIngredients,
         ingredientPrices: newIngredientPrices,
         totalPrice: newTotalPrice
-      } = await getIngredientsWithPrice(totalPrice);
+      } = await getIngredientsWithPrice(axios, totalPrice);
       setIngredients(newIngredients);
       setIngredientPrices(newIngredientPrices);
       setTotalPrice(newTotalPrice);

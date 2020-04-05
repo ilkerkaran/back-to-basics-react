@@ -1,0 +1,40 @@
+.Order {
+  width:100%;
+  margin: auto;
+  text-align: center;
+  box-sizing: border-box;
+  border: 5px ;
+  box-shadow: 2px 2px 5px lightgrey;  
+}
+
+.Order .Ingredients{
+  width:80%;
+  margin: auto;
+}
+
+.Order .Ingredient{
+  margin: 5px;
+  padding: 5px;
+
+  box-sizing: border-box;
+  border: 5px ;
+  box-shadow: 2px 2px 5px lightgrey;  
+text-align: center;
+
+}
+
+.Order .Price {
+font-weight: 700;
+color: #BB4444;
+}
+
+.Order .Date {
+  font-style: italic;
+}
+
+@media(min-width:600px){
+
+  .Order {
+    width: 500px;
+  }
+}

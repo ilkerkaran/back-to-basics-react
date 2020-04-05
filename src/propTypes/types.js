@@ -13,11 +13,26 @@ export const routerTypes = (
 
 
 export const ingredientTypes = {
-
   ingredients: PropTypes.shape({
     bacon: PropTypes.number,
     cheese: PropTypes.number,
     salad: PropTypes.number,
     meat: PropTypes.number
   }).isRequired
+};
+
+export const contactDataTypes = {
+  contactData: PropTypes.shape({
+    name: PropTypes.string,
+    email: PropTypes.string,
+    address: PropTypes.string,
+    postal: PropTypes.string
+  }).isRequired
+};
+
+export const orderDataTypes = {
+  ...ingredientTypes.isRequired,
+  ...contactDataTypes.isRequired,
+  orderDate: PropTypes.instanceOf(Date).isRequired,
+  totalPrice: PropTypes.number.isRequired
 };

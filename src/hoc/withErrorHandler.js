@@ -4,16 +4,19 @@ import Modal from '../components/UI/Modal/Modal';
 
 // eslint-disable-next-line react/display-name
 const withErrorHandler = (WrappedComponent, axios) => (props) => {
-  let reqInterceptor;
-  let resInterceptor;
   const [error, setError] = useState('');
-  useEffect(() => {
-    reqInterceptor = axios.interceptors.request.use((req) => {
-      setError(null);
-      return req;
+
+  const reqInterceptor = axios.interceptors.request.use((req) => {
+    setError(null);
+    return req;
+  });
+  const resInterceptor = axios.interceptors.response.use((res) => res,
+    (err) => {
+      setError(err.toString());
     });
-    resInterceptor = axios.interceptors.response.use((res) => res,
-      (err) => { setError(err.toString()); });
+
+  useEffect(() => {
+    console.log('withErrorHandler exectued');
 
     return () => {
       axios.interceptors.request.eject(reqInterceptor);

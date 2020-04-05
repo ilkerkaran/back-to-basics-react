@@ -18,7 +18,8 @@ const buildControls = (props) => {
     currentPrice,
     purchasable
   } = props;
-  return (
+  if (enabled) {
+    return (
     <div className="BuildControls">
       <p>
         Current Price: <b>${currentPrice}</b>
@@ -41,7 +42,9 @@ const buildControls = (props) => {
         ORDER NOW!
       </button>
     </div>
-  );
+    );
+  }
+  return null;
 };
 
 export default buildControls;

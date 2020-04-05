@@ -5,13 +5,15 @@ import Button from '../../UI/Button/Button';
 import { ingredientTypes } from '../../../propTypes/types';
 
 const orderSummary = (props) => {
-  const ingredientSummary = Object.keys(props.ingredients).map((igKey) => (
+  const { ingredients } = props;
+  if (ingredients) {
+    const ingredientSummary = Object.keys(props.ingredients).map((igKey) => (
     <li key={igKey}>
       {igKey} : {props.ingredients[igKey]}
     </li>
-  ));
-  return (
-    <>
+    ));
+    return (
+      <>
       <h3>Your Order</h3>
       <p>A delicious burger with the following ingredients:</p>
       <ul>{ingredientSummary}</ul>
@@ -23,8 +25,10 @@ const orderSummary = (props) => {
       <Button onClick={props.onContinue} buttonType="Success">
         CONTINUE
       </Button>
-    </>
-  );
+      </>
+    );
+  }
+  return null;
 };
 
 export default orderSummary;
