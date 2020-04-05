@@ -2,8 +2,7 @@
   width:100%;
   margin: auto;
   text-align: center;
-  box-sizing: border-box;
-  border: 5px ;
+
   box-shadow: 2px 2px 5px lightgrey;  
 }
 
@@ -15,12 +14,9 @@
 .Order .Ingredient{
   margin: 5px;
   padding: 5px;
-
   box-sizing: border-box;
-  border: 5px ;
   box-shadow: 2px 2px 5px lightgrey;  
-text-align: center;
-
+  text-align: center;
 }
 
 .Order .Price {
@@ -33,7 +29,6 @@ color: #BB4444;
 }
 
 @media(min-width:600px){
-
   .Order {
     width: 500px;
   }
