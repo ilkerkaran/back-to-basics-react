@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from '../../../components/UI/Button/Button';
 import './ContactData.css';
 import Spinner from '../../../components/UI/Spinner/Spinner';
+import Form from '../../../components/UI/Form/Form';
 
 const contactData = (props) => {
   const { loading } = props;
-  const onOrderClick = () => {
+  const onOrderClick = (formData) => {
+    console.log('formData', formData);
     // TODO: get details from form
     props.onOrderClick({
       name: 'ilker',
@@ -16,16 +17,42 @@ const contactData = (props) => {
     });
   };
 
+
+  // inputType: PropTypes.oneOf(inputTypes),
+  // inputName: PropTypes.string.isRequired,
+  // isRequired: PropTypes.bool,
+  // label: PropTypes.string.isRequired,
+  // onChange: PropTypes.func.isRequired,
+  // value: PropTypes.string,
+  // options: PropTypes.arrayOf(PropTypes.shape(selectOptionTypes)),
+  // register: PropTypes.func
+
+  const formInputConfig = [{
+    inputType: 'select',
+    inputName: 'paymentType',
+    label: 'Payment Type',
+    value: 'cash',
+    options: [{
+      id: 'creditCard',
+      value: 'Credit/Debit Card'
+    }, {
+      id: 'cash',
+      value: 'Cash'
+    }]
+  }];
+
+
   return (loading ? <Spinner /> : (
     <div className="ContactData">
     <h4>Please fill your details!</h4>
-      <form>
+    <Form inputConfigs={formInputConfig} onSubmit={onOrderClick}/>
+     {/*   <form>
         <input type="text" placeholder="Your Name"/>
         <input type="text" placeholder="email"/>
         <input type="text" placeholder="address"/>
         <input type="text" placeholder="postal"/>
         <Button buttonType="Success" onClick={onOrderClick}>ORDER!</Button>
-      </form>
+     </form> */}
     </div>)
   );
 };
