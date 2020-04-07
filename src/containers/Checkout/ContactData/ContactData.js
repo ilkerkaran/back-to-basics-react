@@ -9,12 +9,7 @@ const contactData = (props) => {
   const onOrderClick = (formData) => {
     console.log('formData', formData);
     // TODO: get details from form
-    props.onOrderClick({
-      name: 'ilker',
-      address: 'Newbury',
-      email: 'ilker@gmail.com',
-      postal: 'RG14 1BF'
-    });
+    props.onOrderClick(formData);
   };
 
 
@@ -28,10 +23,33 @@ const contactData = (props) => {
   // register: PropTypes.func
 
   const formInputConfig = [{
+    inputType: 'text',
+    inputName: 'name',
+    label: 'Full Name',
+    isRequired: true
+  },
+  {
+    inputType: 'email',
+    inputName: 'email',
+    label: 'Email Address',
+    isRequired: true
+  },
+  {
+    inputType: 'text',
+    inputName: 'address',
+    label: 'Town'
+  },
+  {
+    inputType: 'text',
+    inputName: 'postCode',
+    label: 'Post Code',
+    isRequired: true
+  }, {
     inputType: 'select',
     inputName: 'paymentType',
-    label: 'Payment Type',
-    value: 'cash',
+    label: 'Please select a Payment Type',
+    // value: 'cash',
+    isRequired: true,
     options: [{
       id: 'creditCard',
       value: 'Credit/Debit Card'
@@ -44,15 +62,9 @@ const contactData = (props) => {
 
   return (loading ? <Spinner /> : (
     <div className="ContactData">
-    <h4>Please fill your details!</h4>
-    <Form inputConfigs={formInputConfig} onSubmit={onOrderClick}/>
-     {/*   <form>
-        <input type="text" placeholder="Your Name"/>
-        <input type="text" placeholder="email"/>
-        <input type="text" placeholder="address"/>
-        <input type="text" placeholder="postal"/>
-        <Button buttonType="Success" onClick={onOrderClick}>ORDER!</Button>
-     </form> */}
+
+      <Form title="Please fill your details!" inputConfigs={formInputConfig} onSubmit={onOrderClick} />
+      <br />
     </div>)
   );
 };

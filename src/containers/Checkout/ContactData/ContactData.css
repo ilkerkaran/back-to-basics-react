@@ -3,17 +3,7 @@
   text-align: center;
   margin: auto;
 }
-.ContactData  form {
-  width: 80%;
-  text-align: center;
-  margin: auto;
-}
 
-.ContactData input{
-  width: 80%;
-  text-align: center;
-  display: inline-block;
-}
 
 .ContactData .Button{
   width: 80%;
