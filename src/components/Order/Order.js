@@ -21,11 +21,12 @@ const order = (props) => {
   });
 
   return (<div className='Order'>
-  <h4>{contactData.email} - {contactData.postal}</h4>
+  <h4>{contactData.email} - {contactData.postCode}</h4>
   <div className="Ingredients">
   {ingredientsTemplate}
   </div>
   <p className="Price">$ {totalPrice}</p>
+  <p >Payment Type: {contactData.paymentType}</p>
   <p className="Date">{orderDate}</p>
   </div>);
 };

@@ -1,0 +1,30 @@
+.Form {
+  text-align:center;
+  display: inline-block;
+  width: 100%;
+  box-sizing: border-box ;
+  border-color: lightgray;
+  box-shadow: 2px 2px 2px 2px lightgray;
+}
+
+.Form form {
+  width: 80% ; 
+  display: inline-block;
+  margin: auto;
+}
+
+
+
+.Form .Input{
+  width: 100%; 
+  margin: 3px auto;
+  text-align:center;
+  text-align-last:center;
+}
+
+@media(min-width:600px)
+{
+  .Form {
+    width: 500px;
+  }
+}
