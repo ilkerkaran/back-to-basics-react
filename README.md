@@ -1,5 +1,5 @@
 ## Hamburger App
-I developed the app in order to try new features of React latest (v16.12). I started writing class based components and convert all into react hooks on the way.
+I developed the app in order to try new features of React latest (v16.12). I started writing class based components and convert all into react hooks on the way. 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
