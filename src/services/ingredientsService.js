@@ -1,17 +1,10 @@
+import axios from '../axios-orders';
 
 // eslint-disable-next-line import/prefer-default-export
-export const getIngredientsWithPrice = async (axios, currentTotalPrice) => {
+export const getIngredientsWithPrice = async () => {
   try {
     const { data: priceData } = await axios.get('/ingredient-prices.json');
-    const { data: initialIngredients } = await axios.get('/ingredients.json');
-
-    const total = Object.keys(initialIngredients)
-      .reduce((init, type) => init + initialIngredients[type] * priceData[type], currentTotalPrice || 0);
-    return {
-      ingredientPrices: { ...priceData },
-      ingredients: { ...initialIngredients },
-      totalPrice: total
-    };
+    return priceData;
   } catch (err) {
     console.log('error while executing getIngredientsWithPrice; ', err);
   }
