@@ -1,4 +1,3 @@
-// TODO: should fetch orders from backend and render Order component respectively. It should be navigated like burgerBuilder or checkout
 import React, { useEffect, useState } from 'react';
 import { getOrders } from '../../../services/ordersService';
 import Spinner from '../../../components/UI/Spinner/Spinner';

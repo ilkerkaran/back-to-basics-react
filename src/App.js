@@ -10,10 +10,10 @@ function App() {
   return (
     <div>
       <Layout>
-      <Redirect path="/" exact to="burgerBuilder" />
-      <Route path="/checkout" component={Checkout} />
-      <Route path="/orders" component={Orders} />
-      <Route path="/burgerBuilder" component={BurgerBuilder} />
+        <Redirect path="/" exact to="burgerBuilder" />
+        <Route path="/checkout" component={Checkout} />
+        <Route path="/orders" component={Orders} />
+        <Route path="/burgerBuilder" exact component={BurgerBuilder} />
       </Layout>
     </div>
   );
