@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
@@ -6,28 +7,29 @@ import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import axios from '../../axios-orders';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler';
-import { getIngredientsWithPrice } from '../../services/ingredientsService';
 import { routerTypes } from '../../propTypes/types';
+import * as actions from '../../store/actions/actionCreators';
 
-
-const burgerBuilder = (props) => {
-  const [ingredients, setIngredients] = useState({});
-  const [ingredientPrices, setIngredientPrices] = useState([]);
-  const [totalPrice, setTotalPrice] = useState(0);
+const burgerBuilder = ({
+  ingredients,
+  totalPrice,
+  history,
+  initIngredients,
+  onAddIngredient,
+  onRemoveIngredient,
+  getIngredientPrices,
+  loading
+}) => {
   const [purchasable, setPurchasable] = useState(false);
   const [purchasing, setPurchasing] = useState(false);
-  // eslint-disable-next-line no-unused-vars
-  const [isOrderprocessing, setIsOrderprocessing] = useState(false);
 
   const purchaseHandler = () => {
     setPurchasing(true);
   };
 
   const continuePurchaseHandler = () => {
-    const { history } = props;
     history.push({
-      pathname: '/checkout',
-      state: { ingredients, totalPrice }
+      pathname: '/checkout'
     });
   };
 
@@ -36,44 +38,26 @@ const burgerBuilder = (props) => {
   };
 
   const addIngredientHandler = (type) => {
-    const updatedIngredients = { ...ingredients };
-    updatedIngredients[type] += 1;
-
-    setIngredients(updatedIngredients);
-    setPurchasable(updatedIngredients.meat > 0);
-    setTotalPrice(totalPrice + ingredientPrices[type]);
+    onAddIngredient(type);
+    setPurchasable(ingredients.meat > 0);
   };
 
   const removeIngredientHandler = (type) => {
-    const updatedIngredients = { ...ingredients };
-    if (updatedIngredients[type] > 0) {
-      updatedIngredients[type] -= 1;
-
-      setIngredients(updatedIngredients);
-      setPurchasable(updatedIngredients.meat > 0);
-      setTotalPrice(totalPrice - ingredientPrices[type]);
-    }
+    onRemoveIngredient(type);
+    setPurchasable(ingredients.meat > 0);
   };
 
 
   useEffect(() => {
-    (async () => {
-      const {
-        ingredients: newIngredients,
-        ingredientPrices: newIngredientPrices,
-        totalPrice: newTotalPrice
-      } = await getIngredientsWithPrice(axios, totalPrice);
-      setIngredients(newIngredients);
-      setIngredientPrices(newIngredientPrices);
-      setTotalPrice(newTotalPrice);
-      setPurchasable(ingredients.meat > 0);
-    })();
+    initIngredients();
+    getIngredientPrices();
+    setPurchasable(ingredients.meat > 0);
   }, []);
 
   return (
     <>
       <Modal show={purchasing} onClose={cancelPurchaseHandler}>
-        {isOrderprocessing ? <Spinner />
+        {loading ? <Spinner />
           : <OrderSummary
             onCancel={cancelPurchaseHandler}
             onContinue={continuePurchaseHandler}
@@ -95,8 +79,20 @@ const burgerBuilder = (props) => {
   );
 };
 
+const mapStateToProps = (state) => ({
+  ingredients: state.ingredients,
+  totalPrice: state.totalPrice
+});
 
-export default withErrorHandler(burgerBuilder, axios);
+const mapDispatchToprops = (dispatch) => ({
+  onAddIngredient: (ingredientType) => dispatch(actions.addIngredient(ingredientType)),
+  onRemoveIngredient: (ingredientType) => dispatch(actions.removeIngredient(ingredientType)),
+  initIngredients: () => dispatch(actions.initIngredients()),
+  getIngredientPrices: () => dispatch(actions.getIngredientsPrices())
+});
+
+
+export default connect(mapStateToProps, mapDispatchToprops)(withErrorHandler(burgerBuilder, axios));
 
 burgerBuilder.propTypes = {
   ...routerTypes

@@ -1,6 +1,6 @@
 // TODO: should fetch orders from backend and render Order component respectively. It should be navigated like burgerBuilder or checkout
 import React, { useEffect, useState } from 'react';
-import { getOrders } from '../../../services/ingredientsService';
+import { getOrders } from '../../../services/ordersService';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import axios from '../../../axios-orders';
 import Order from '../../../components/Order/Order';
@@ -19,7 +19,7 @@ const orders = () => {
       setLoading(false);
     });
   }, []);
-  return (<div className="Orders">{ loading ? (<Spinner />) : (fetchedOrders.map((o, index) => (<Order key={index} order={o}/>))) }</div>);
+  return (<div className="Orders">{loading ? (<Spinner />) : (fetchedOrders.map((o, index) => (<Order key={index} order={o} />)))}</div>);
 };
 
 export default orders;

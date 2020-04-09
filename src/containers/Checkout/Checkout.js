@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Route } from 'react-router-dom';
+import { connect } from 'react-redux';
 import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary';
 import { routerTypes } from '../../propTypes/types';
 import ContactData from './ContactData/ContactData';
 import { postOrder } from '../../services/ordersService';
 import axios from '../../axios-orders';
 
-const checkout = (props) => {
-  const { location: { state, state: { ingredients, totalPrice } }, history } = props;
+const checkout = ({
+  ingredients,
+  totalPrice,
+  history
+}) => {
   console.log('checkout rendered');
   const [loading, setLoading] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
@@ -48,8 +52,7 @@ const checkout = (props) => {
   const onContinueClick = () => {
     setConfirmed(true);
     history.push({
-      pathname: '/checkout/contactData',
-      state
+      pathname: '/checkout/contactData'
     });
   };
 
@@ -70,7 +73,13 @@ const checkout = (props) => {
   );
 };
 
-export default checkout;
+const mapStateToProps = (state) => ({
+  ingredients: state.ingredients,
+  totalPrice: state.totalPrice,
+  isPurchasing: state.isPurchasing
+});
+
+export default connect(mapStateToProps)(checkout);
 
 checkout.propTypes = {
   ...routerTypes
