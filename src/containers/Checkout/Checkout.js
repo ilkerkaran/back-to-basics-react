@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary';
 import { routerTypes } from '../../propTypes/types';
 import ContactData from './ContactData/ContactData';
-import { postOrder } from '../../services/ingredientsService';
+import { postOrder } from '../../services/ordersService';
 import axios from '../../axios-orders';
 
 const checkout = (props) => {
@@ -57,7 +57,7 @@ const checkout = (props) => {
     loading={loading}
     onOrderClick={onOrderClick} />;
   const checkoutSummary = <CheckoutSummary
-    confirmed= {confirmed}
+    confirmed={confirmed}
     onContinueClick={onContinueClick}
     onCancelClick={onCancelClick}
     ingredients={ingredients} />;

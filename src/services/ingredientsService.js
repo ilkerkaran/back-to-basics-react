@@ -1,4 +1,5 @@
 
+// eslint-disable-next-line import/prefer-default-export
 export const getIngredientsWithPrice = async (axios, currentTotalPrice) => {
   try {
     const { data: priceData } = await axios.get('/ingredient-prices.json');
@@ -16,7 +17,3 @@ export const getIngredientsWithPrice = async (axios, currentTotalPrice) => {
   }
   return {};
 };
-
-export const postOrder = async (axios, order) => axios.post('/orders.json', order);
-
-export const getOrders = async (axios) => axios.get('/orders.json');
