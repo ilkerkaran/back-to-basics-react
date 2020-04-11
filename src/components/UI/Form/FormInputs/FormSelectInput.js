@@ -21,9 +21,7 @@ const select = ({ className, inputConfig }) => {
       name={inputConfig.inputName}
       ref={inputConfig.register({
         validate: (value) => {
-          console.log('inputConfig.isRequired', inputConfig.isRequired);
           const validationRes = !inputConfig.isRequired || value.trim() !== '' || 'You must select an option!';
-          console.log('validationRes', validationRes);
           return validationRes;
         }
       })}>
