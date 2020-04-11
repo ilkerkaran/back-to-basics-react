@@ -6,7 +6,7 @@ const textArea = ({ className, inputConfig }) => (<div className={className}>
   <label htmlFor={inputConfig.inputName}>{inputConfig.label}</label>
   <textarea onChange={inputConfig.onChange}
     name={inputConfig.inputName}
-    ref={inputConfig.register({ required: `${inputConfig.label} is required` })}></textarea>
+    ref={inputConfig.isRequired ? inputConfig.register({ required: `${inputConfig.label} is required` }) : inputConfig.register}></textarea>
     <div style={{ color: 'darkred' }}>
     {inputConfig.errors[inputConfig.inputName] && inputConfig.errors[inputConfig.inputName].message}
     </div>
