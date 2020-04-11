@@ -10,7 +10,6 @@ const orders = () => {
   const [fetchedOrders, setOrders] = useState([]);
   useEffect(() => {
     getOrders(axios).then((response) => {
-      // console.log('getOrders.data', );
       setOrders(Object.keys(response.data).map((k) => response.data[k]));
       setLoading(false);
     }).catch((err) => {
