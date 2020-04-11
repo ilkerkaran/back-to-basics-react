@@ -11,7 +11,9 @@ import Button from '../Button/Button';
 import './Form.css';
 
 const form = ({ title, onSubmit, inputConfigs }) => {
-  const { register, handleSubmit, errors } = useForm({ mode: 'onBlur', reValidateMode: 'onBlur' });
+  const {
+    register, handleSubmit, submitButtonText, errors
+  } = useForm({ mode: 'onBlur', reValidateMode: 'onBlur' });
 
 
   const onSubmitHandler = (data) => {
@@ -40,7 +42,7 @@ const form = ({ title, onSubmit, inputConfigs }) => {
     <h4>{title}</h4>
     <form onSubmit={handleSubmit(onSubmitHandler)}>
     {formInputs}
-      <Button inputType="submit" buttonType="Success">Order!</Button>
+      <Button inputType="submit" buttonType="Success"> {submitButtonText || 'Submit'}</Button>
     </form>
     </div>
   );
@@ -50,6 +52,7 @@ export default form;
 
 form.propTypes = {
   title: PropTypes.string,
+  submitButtonText: PropTypes.string,
   ...inputConfigsTypes,
   onSubmit: PropTypes.func.isRequired
 };
