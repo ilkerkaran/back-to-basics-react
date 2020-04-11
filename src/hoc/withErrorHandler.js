@@ -12,7 +12,13 @@ const withErrorHandler = (WrappedComponent, axios) => (props) => {
   });
   const resInterceptor = axios.interceptors.response.use((res) => res,
     (err) => {
-      setError(err.toString());
+      const message = (err
+        && err.response
+        && err.response.data
+        && err.response.data.error
+        && err.response.data.error.message) || err.toString();
+      setError(message);
+      throw err;
     });
 
   useEffect(() => {
@@ -26,7 +32,7 @@ const withErrorHandler = (WrappedComponent, axios) => (props) => {
 
   return (<>
       <Modal
-        onClose={() => { this.setState({ error: null }); }}
+        onClose={() => { setError(null); }}
         show={!!error} >
         <p>{error}</p>
       </Modal>
