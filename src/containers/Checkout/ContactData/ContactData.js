@@ -51,7 +51,10 @@ const contactData = (props) => {
   return (loading ? <Spinner /> : (
     <div className="ContactData">
 
-      <Form title="Please fill your details!" inputConfigs={formInputConfig} onSubmit={onOrderClick} />
+      <Form title="Please fill your details!"
+        submitButtonText="Order!"
+        inputConfigs={formInputConfig}
+        onSubmit={onOrderClick} />
       <br />
     </div>)
   );
