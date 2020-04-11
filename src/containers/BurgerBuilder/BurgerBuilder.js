@@ -80,8 +80,8 @@ const burgerBuilder = ({
 };
 
 const mapStateToProps = (state) => ({
-  ingredients: state.ingredients,
-  totalPrice: state.totalPrice
+  ingredients: state.ing.ingredients,
+  totalPrice: state.ing.totalPrice
 });
 
 const mapDispatchToprops = (dispatch) => ({

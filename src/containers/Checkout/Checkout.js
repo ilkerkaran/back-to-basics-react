@@ -74,8 +74,8 @@ const checkout = ({
 };
 
 const mapStateToProps = (state) => ({
-  ingredients: state.ingredients,
-  totalPrice: state.totalPrice,
+  ingredients: state.ing.ingredients,
+  totalPrice: state.ing.totalPrice,
   isPurchasing: state.isPurchasing
 });
 
