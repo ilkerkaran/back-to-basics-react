@@ -7,12 +7,15 @@ import Text from './FormInputs/FormTextInput';
 import Email from './FormInputs/FormEmailInput';
 import Number from './FormInputs/FormNumberInput';
 import TextArea from './FormInputs/FormTextAreaInput';
+import Password from './FormInputs/FormPasswordInput';
 import Button from '../Button/Button';
 import './Form.css';
 
-const form = ({ title, onSubmit, inputConfigs }) => {
+const form = ({
+  title, onSubmit, inputConfigs, submitButtonText
+}) => {
   const {
-    register, handleSubmit, submitButtonText, errors
+    register, handleSubmit, errors
   } = useForm({ mode: 'onBlur', reValidateMode: 'onBlur' });
 
 
@@ -26,6 +29,8 @@ const form = ({ title, onSubmit, inputConfigs }) => {
         return (<Text className="Input Text" key={conf.inputName} inputConfig={{ ...conf, register, errors }}/>);
       case 'email':
         return (<Email className="Input Email" key={conf.inputName} inputConfig={{ ...conf, register, errors }}/>);
+      case 'password':
+        return (<Password className="Input Password" key={conf.inputName} inputConfig={{ ...conf, register, errors }}/>);
       case 'number':
         return (<Number className="Input Number" key={conf.inputName} inputConfig={{ ...conf, register, errors }}/>);
       case 'select':
@@ -36,7 +41,6 @@ const form = ({ title, onSubmit, inputConfigs }) => {
         return (<Text className="Input Text" key={conf.inputName} inputConfig={{ ...conf, register }}/>);
     }
   });
-
   return (
     <div className="Form">
     <h4>{title}</h4>

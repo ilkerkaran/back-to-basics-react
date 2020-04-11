@@ -12,12 +12,12 @@ const email = ({ className, inputConfig }) => (<div className={className}>
       required: `${inputConfig.label} is required`,
       pattern: {
         value: /[0-9a-zA-Z]{6,}/,
-        message: 'invalid email address'
+        message: 'invalid password'
       }
     }) : inputConfig.register({
       pattern: {
         value: /[0-9a-zA-Z]{6,}/,
-        message: 'invalid email address'
+        message: 'invalid password'
       }
     })}/>
     <div style={{ color: 'darkred' }}>
