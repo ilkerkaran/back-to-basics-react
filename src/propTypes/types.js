@@ -1,7 +1,7 @@
 import ReactRouterPropTypes from 'react-router-prop-types';
 import PropTypes from 'prop-types';
 
-export const inputTypes = ['text', 'select', 'number', 'textArea', 'email'];
+export const inputTypes = ['text', 'select', 'number', 'textArea', 'email', 'password'];
 export const routerTypes = (
   {
   // You can chain any of the above with `isRequired` to make sure a warning
