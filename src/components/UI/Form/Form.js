@@ -20,7 +20,6 @@ const form = ({
 
 
   const onSubmitHandler = (data) => {
-    console.log(data);
     onSubmit(data);
   };
   const formInputs = inputConfigs.map((conf) => {
