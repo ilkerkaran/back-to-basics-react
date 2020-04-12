@@ -24,9 +24,9 @@ export const signInStart = () => ({
   type: actionTypes.SIGNIN_START
 });
 
-export const signInSuccess = (token, expiresIn) => ({
+export const signInSuccess = (username, token, expiresAt) => ({
   type: actionTypes.SIGNIN_SUCCESS,
-  payload: { token, expiresIn }
+  payload: { username, token, expiresAt }
 });
 export const signInFail = (error) => ({
   type: actionTypes.SIGNIN_FAIL,
@@ -35,12 +35,10 @@ export const signInFail = (error) => ({
 
 export const signIn = (username, password) => (dispatch) => {
   dispatch(signInStart());
-  signInRequest(username, password).then((response) => {
-    console.log('signIn Response: ', response);
-    dispatch(signInSuccess());
+  return signInRequest(username, password).then((response) => {
+    dispatch(signInSuccess(username, response.data.idToken, new Date(new Date().getTime() + response.data.expiresIn * 1000)));
   }).catch((err) => {
     console.log('err', err);
-
     dispatch(signInFail(err));
   });
 };
@@ -49,9 +47,9 @@ export const signUpStart = () => ({
   type: actionTypes.SIGNUP_START
 });
 
-export const signUpSuccess = (token, expiresIn) => ({
+export const signUpSuccess = (username, token, expiresAt) => ({
   type: actionTypes.SIGNUP_SUCCESS,
-  payload: { token, expiresIn }
+  payload: { username, token, expiresAt }
 });
 export const signUpFail = (error) => ({
   type: actionTypes.SIGNUP_FAIL,
@@ -60,15 +58,33 @@ export const signUpFail = (error) => ({
 
 export const signUp = (username, password) => (dispatch) => {
   dispatch(signUpStart());
-  signUpRequest(username, password).then((response) => {
-    console.log('signIn Response: ', response);
-    dispatch(signUpSuccess());
+  return signUpRequest(username, password).then((response) => {
+    dispatch(signUpSuccess(username, response.data.idToken, new Date(new Date().getTime() + response.data.expiresIn * 1000)));
   }).catch((err) => dispatch(signUpFail(err.response.data.error.message)));
 };
 
 
 export const logout = () => ({
   type: actionTypes.LOGOUT
+});
+
+export const checkIsAuthenticated = (currentRoute) => (dispatch) => {
+  const expiresAt = localStorage.getItem('expiresAt');
+  const now = new Date();
+  if (expiresAt && (new Date(expiresAt) > new Date(now))) {
+    dispatch(validateUser());
+  } else {
+    dispatch(invalidateUser(currentRoute || '/'));
+  }
+};
+
+export const validateUser = () => ({
+  type: actionTypes.VALIDATE_USER
+});
+
+export const invalidateUser = (currentRoute) => ({
+  type: actionTypes.INVALIDATE_USER,
+  payload: { redirectAfterSignin: currentRoute }
 });
 
 const getIngredientsPricesStart = () => ({
@@ -89,8 +105,7 @@ export const getIngredientsPrices = () => (dispatch) => {
   dispatch(getIngredientsPricesStart());
   return getIngredientsWithPrice()
     .then((response) => {
-      console.log('response', response);
-      dispatch(getIngredientsPricesSuccess(response));
+      dispatch(getIngredientsPricesSuccess(response.data));
     })
     .catch((err) => { dispatch(getIngredientsPricesFail(err)); });
 };

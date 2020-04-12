@@ -23,3 +23,5 @@ export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 export const SIGNUP_FAIL = 'SIGNUP_FAIL';
 
 export const LOGOUT = 'LOGOUT';
+export const INVALIDATE_USER = 'INVALIDATE_USER';
+export const VALIDATE_USER = 'VALIDATE_USER';
