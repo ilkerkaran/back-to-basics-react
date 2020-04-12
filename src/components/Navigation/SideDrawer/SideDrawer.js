@@ -5,12 +5,12 @@ import Logo from '../../Logo/Logo';
 import NavigaitonItems from '../NavigationItems/NavgitaionItems';
 import Backdrop from '../../UI/Backdrop/Backdrop';
 
-const sideDrawer = (props) => {
-  const sideDrawerClass = `SideDrawer ${props.open ? 'Open' : 'Close'}`;
+const sideDrawer = ({ open, onBackdropClick }) => {
+  const sideDrawerClass = `SideDrawer ${open ? 'Open' : 'Close'}`;
   return (
     <>
-      <Backdrop show={props.open} onClick={props.onBackdropClick} />
-      <div className={sideDrawerClass}>
+      <Backdrop show={open} onClick={onBackdropClick} />
+      <div onClick={onBackdropClick} className={sideDrawerClass}>
         <div className="side-drawer-logo">
           <Logo />
         </div>
