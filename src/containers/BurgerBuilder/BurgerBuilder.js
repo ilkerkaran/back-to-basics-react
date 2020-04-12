@@ -18,7 +18,9 @@ const burgerBuilder = ({
   onAddIngredient,
   onRemoveIngredient,
   getIngredientPrices,
-  loading
+  loading,
+  isAuthenticated,
+  invalidateUser
 }) => {
   const [purchasable, setPurchasable] = useState(false);
   const [purchasing, setPurchasing] = useState(false);
@@ -28,9 +30,16 @@ const burgerBuilder = ({
   };
 
   const continuePurchaseHandler = () => {
-    history.push({
-      pathname: '/checkout'
-    });
+    if (isAuthenticated) {
+      history.push({
+        pathname: '/checkout'
+      });
+    } else {
+      invalidateUser('/checkout');
+      history.push({
+        pathname: '/signin'
+      });
+    }
   };
 
   const cancelPurchaseHandler = () => {
@@ -81,14 +90,16 @@ const burgerBuilder = ({
 
 const mapStateToProps = (state) => ({
   ingredients: state.ing.ingredients,
-  totalPrice: state.ing.totalPrice
+  totalPrice: state.ing.totalPrice,
+  isAuthenticated: !!state.auth.token
 });
 
 const mapDispatchToprops = (dispatch) => ({
   onAddIngredient: (ingredientType) => dispatch(actions.addIngredient(ingredientType)),
   onRemoveIngredient: (ingredientType) => dispatch(actions.removeIngredient(ingredientType)),
   initIngredients: () => dispatch(actions.initIngredients()),
-  getIngredientPrices: () => dispatch(actions.getIngredientsPrices())
+  getIngredientPrices: () => dispatch(actions.getIngredientsPrices()),
+  invalidateUser: (route) => dispatch(actions.invalidateUser(route))
 });
 
 
