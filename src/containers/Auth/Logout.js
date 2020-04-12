@@ -6,10 +6,10 @@ import { logout as logoutAction } from '../../store/actions/actionCreators';
 
 const logout = ({ onLogout }) => {
   useEffect(() => {
-    onLogout();
   }, []);
 
-  return (<Redirect to="/" />);
+  onLogout();
+  return (<Redirect to="/burgerbuilder" />);
 };
 
 const mapDispatchToProps = (dispatch) => ({
@@ -20,6 +20,6 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(null, mapDispatchToProps)(logout);
 
 logout.propTypes = {
-  onLogout: PropTypes.funct
+  onLogout: PropTypes.func
 
 };
