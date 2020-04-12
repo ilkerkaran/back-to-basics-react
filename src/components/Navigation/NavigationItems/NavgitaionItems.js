@@ -30,7 +30,7 @@ const navigaitonItems = ({ isAuthenticated }) => {
 };
 
 const mapStateToProps = (state) => ({
-  isAuthenticated: !!state.token
+  isAuthenticated: !!state.auth.token
 
 });
 
