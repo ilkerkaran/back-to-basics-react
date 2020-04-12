@@ -21,13 +21,9 @@ const withErrorHandler = (WrappedComponent, axios) => (props) => {
       throw err;
     });
 
-  useEffect(() => {
-    console.log('withErrorHandler exectued');
-
-    return () => {
-      axios.interceptors.request.eject(reqInterceptor);
-      axios.interceptors.response.eject(resInterceptor);
-    };
+  useEffect(() => () => {
+    axios.interceptors.request.eject(reqInterceptor);
+    axios.interceptors.response.eject(resInterceptor);
   }, []);
 
   return (<>

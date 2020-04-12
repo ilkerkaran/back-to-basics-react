@@ -22,16 +22,14 @@ const checkout = ({
       contactData,
       orderDate: new Date(),
       totalPrice
-    }).then((response) => {
-      console.log('postOrder result:', response);
+    }).then(() => {
       setLoading(false);
       setOrdered(true);
       history.push({
         pathname: '/'
       });
-    }).catch((err) => {
+    }).catch(() => {
       setLoading(false);
-      console.log('err:', err);
     });
   };
 

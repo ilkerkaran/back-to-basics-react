@@ -1,11 +1,8 @@
-// TODO: should show a single order with ingredients and customer detail like address and order date
-
 import React from 'react';
 import { orderDataTypes } from '../../propTypes/types';
 import './Order.css';
 
 const order = (props) => {
-  console.log('order.props', props);
   const {
     order: {
       ingredients,

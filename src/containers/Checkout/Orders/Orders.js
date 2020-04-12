@@ -12,8 +12,7 @@ const orders = () => {
     getOrders(axios).then((response) => {
       setOrders(Object.keys(response.data).map((k) => response.data[k]));
       setLoading(false);
-    }).catch((err) => {
-      console.log('error while exceuting getOrders; ', err);
+    }).catch(() => {
       setLoading(false);
     });
   }, []);

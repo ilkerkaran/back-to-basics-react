@@ -38,7 +38,6 @@ export const signIn = (username, password) => (dispatch) => {
   return signInRequest(username, password).then((response) => {
     dispatch(signInSuccess(username, response.data.idToken, new Date(new Date().getTime() + response.data.expiresIn * 1000)));
   }).catch((err) => {
-    console.log('err', err);
     dispatch(signInFail(err));
   });
 };

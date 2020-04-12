@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -9,7 +9,6 @@ import axios from '../../axios-orders';
 import { signIn as signInAction, signUp as signUpAction, signInSuccess } from '../../store/actions/actionCreators';
 
 const auth = (props) => {
-  console.log('auth.props', props);
   const {
     loading,
     onSignIn,
@@ -48,12 +47,6 @@ const auth = (props) => {
   onSubmit={onSubmitClick} />
   <br />
 </div>);
-
-  useEffect(() => {
-    console.log('token', token);
-    console.log('loading', loading);
-  });
-
 
   const redirect = (<Redirect to={redirectTo}/>);
   return (token ? redirect : signinForm);
