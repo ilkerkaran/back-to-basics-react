@@ -12,7 +12,6 @@ const checkout = ({
   totalPrice,
   history
 }) => {
-  console.log('checkout rendered');
   const [loading, setLoading] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
   const [ordered, setOrdered] = useState(false);
