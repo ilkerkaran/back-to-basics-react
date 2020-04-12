@@ -8,7 +8,8 @@ const number = ({ className, inputConfig }) => (<div className={className}>
     ref={inputConfig.isReqired ? inputConfig.register({ required: `${inputConfig.label} is required` }) : inputConfig.register}
     />
     <div style={{ color: 'darkred' }}>
-    {inputConfig.errors[inputConfig.inputName] && inputConfig.errors[inputConfig.inputName].message}
+    {inputConfig.errors[inputConfig.inputName]
+      && inputConfig.errors[inputConfig.inputName].message}
     </div>
 </div>);
 

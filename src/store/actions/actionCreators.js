@@ -36,7 +36,9 @@ export const signInFail = (error) => ({
 export const signIn = (username, password) => (dispatch) => {
   dispatch(signInStart());
   return signInRequest(username, password).then((response) => {
-    dispatch(signInSuccess(username, response.data.idToken, new Date(new Date().getTime() + response.data.expiresIn * 1000)));
+    dispatch(signInSuccess(username,
+      response.data.idToken,
+      new Date(new Date().getTime() + response.data.expiresIn * 1000)));
   }).catch((err) => {
     dispatch(signInFail(err));
   });
@@ -58,7 +60,9 @@ export const signUpFail = (error) => ({
 export const signUp = (username, password) => (dispatch) => {
   dispatch(signUpStart());
   return signUpRequest(username, password).then((response) => {
-    dispatch(signUpSuccess(username, response.data.idToken, new Date(new Date().getTime() + response.data.expiresIn * 1000)));
+    dispatch(signUpSuccess(username,
+      response.data.idToken,
+      new Date(new Date().getTime() + response.data.expiresIn * 1000)));
   }).catch((err) => dispatch(signUpFail(err.response.data.error.message)));
 };
 

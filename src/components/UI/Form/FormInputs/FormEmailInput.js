@@ -21,7 +21,8 @@ const email = ({ className, inputConfig }) => (<div className={className}>
       }
     })}/>
     <div style={{ color: 'darkred' }}>
-    {inputConfig.errors[inputConfig.inputName] && inputConfig.errors[inputConfig.inputName].message}
+    {inputConfig.errors[inputConfig.inputName]
+      && inputConfig.errors[inputConfig.inputName].message}
     </div>
 </div>);
 

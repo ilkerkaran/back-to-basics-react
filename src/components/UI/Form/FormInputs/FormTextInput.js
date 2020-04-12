@@ -7,7 +7,8 @@ const text = ({ className, inputConfig }) => (<div className={className}>
     name={inputConfig.inputName}
     ref={inputConfig.isRequired ? inputConfig.register({ required: `${inputConfig.label} is required` }) : inputConfig.register} />
     <div style={{ color: 'darkred' }}>
-    {inputConfig.errors[inputConfig.inputName] && inputConfig.errors[inputConfig.inputName].message}
+    {inputConfig.errors[inputConfig.inputName]
+      && inputConfig.errors[inputConfig.inputName].message}
     </div>
 </div>);
 

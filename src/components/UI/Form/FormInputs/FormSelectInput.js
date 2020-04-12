@@ -35,7 +35,8 @@ const select = ({ className, inputConfig }) => {
         ...opt] : opt}
     </select>
     <div style={{ color: 'darkred' }}>
-    {inputConfig.errors[inputConfig.inputName] && inputConfig.errors[inputConfig.inputName].message}
+    {inputConfig.errors[inputConfig.inputName]
+      && inputConfig.errors[inputConfig.inputName].message}
     </div>
   </div>);
 };
