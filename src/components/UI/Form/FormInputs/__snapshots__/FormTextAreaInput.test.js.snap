@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TextArea /> snapshot  renders correctly 1`] = `
+<div>
+  <label
+    htmlFor="textArea"
+  >
+    TextArea
+  </label>
+  <textarea
+    name="textArea"
+  />
+  <div
+    style={
+      Object {
+        "color": "darkred",
+      }
+    }
+  />
+</div>
+`;

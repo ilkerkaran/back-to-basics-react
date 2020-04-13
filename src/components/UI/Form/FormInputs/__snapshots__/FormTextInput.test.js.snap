@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Text /> snapshot  renders correctly 1`] = `
+<div>
+  <input
+    className="Input"
+    name="text"
+    placeholder="Text"
+    type="text"
+  />
+  <div
+    style={
+      Object {
+        "color": "darkred",
+      }
+    }
+  />
+</div>
+`;

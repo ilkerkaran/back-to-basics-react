@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Modal /> snapshot  renders correctly 1`] = `
+Array [
+  <div
+    className="Backdrop"
+    onClick={[Function]}
+  >
+     
+  </div>,
+  <div
+    className="Modal"
+    style={
+      Object {
+        "opacity": "1",
+        "transform": "translateY(0)",
+      }
+    }
+  />,
+]
+`;

@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Select /> snapshot  renders correctly 1`] = `
+<div>
+  <select
+    className="Input"
+    name="paymentType"
+    onChange={[Function]}
+  >
+    <option
+      value=""
+    >
+      Please select a Payment Type
+    </option>
+    <option
+      value="creditCard"
+    >
+      Credit/Debit Card
+    </option>
+    <option
+      value="cash"
+    >
+      Cash
+    </option>
+  </select>
+  <div
+    style={
+      Object {
+        "color": "darkred",
+      }
+    }
+  />
+</div>
+`;
