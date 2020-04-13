@@ -51,6 +51,7 @@
     "react-router-dom": "^5.1.2",
     "react-router-prop-types": "^1.0.4",
     "react-style-loader": "^2.3.0",
+    "react-test-renderer": "^16.13.1",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "resolve": "1.15.0",
@@ -98,9 +99,10 @@
       "!src/**/*.d.ts"
     ],
     "setupFiles": [
-      "react-app-polyfill/jsdom"
+      "react-app-polyfill/jsdom",
+      "<rootDir>src/setupTests.js"
     ],
-    "setupFilesAfterEnv": [],
+    "setupFilesAfterEnv":  ["<rootDir>src/setupTests.js"],
     "testMatch": [
       "<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}",
       "<rootDir>/src/**/*.{spec,test}.{js,jsx,ts,tsx}"
@@ -145,6 +147,8 @@
   "devDependencies": {
     "babel-eslint": "^10.1.0",
     "css-loader": "^3.4.2",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.1.0",
     "eslint-config-airbnb-base": "^14.0.0",
