@@ -8,6 +8,10 @@
 # testing
 /coverage
 
+#deployment
+.deployment
+*firebase*
+
 # production
 /build
 /secret
