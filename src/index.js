@@ -10,7 +10,7 @@ import * as serviceWorker from './serviceWorker';
 import rootReducer from './store/reducers';
 
 // redux devtools configuration
-const composeEnhancers = process.env.NODE_ENV
+const composeEnhancers = process.env.NODE_ENV && process.env.NODE_ENV.toLowerCase() === 'production'
   // eslint-disable-next-line no-underscore-dangle
   ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
   : null || compose;
