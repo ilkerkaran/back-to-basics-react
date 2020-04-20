@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
@@ -11,19 +12,24 @@ import { routerTypes } from '../../propTypes/types';
 import * as actions from '../../store/actions/actionCreators';
 
 const burgerBuilder = ({
-  ingredients,
-  totalPrice,
-  history,
-  initIngredients,
-  onAddIngredient,
-  onRemoveIngredient,
-  getIngredientPrices,
-  loading,
-  isAuthenticated,
-  invalidateUser
+  loading
 }) => {
   const [purchasable, setPurchasable] = useState(false);
   const [purchasing, setPurchasing] = useState(false);
+
+  // redux state
+  const { ingredients, totalPrice } = useSelector((state) => state.ing);
+  const isAuthenticated = useSelector((state) => !!state.auth.token);
+
+  // redux dispatch
+  const dispatch = useDispatch();
+  const onAddIngredient = (ingredientType) => dispatch(actions.addIngredient(ingredientType));
+  const onRemoveIngredient = (ingredientType) => dispatch(actions.removeIngredient(ingredientType));
+  const initIngredients = () => dispatch(actions.initIngredients());
+  const getIngredientPrices = () => dispatch(actions.getIngredientsPrices());
+  const invalidateUser = (route) => dispatch(actions.invalidateUser(route));
+
+  const history = useHistory();
 
   const purchaseHandler = () => {
     setPurchasing(true);
@@ -88,22 +94,7 @@ const burgerBuilder = ({
   );
 };
 
-const mapStateToProps = (state) => ({
-  ingredients: state.ing.ingredients,
-  totalPrice: state.ing.totalPrice,
-  isAuthenticated: !!state.auth.token
-});
-
-const mapDispatchToprops = (dispatch) => ({
-  onAddIngredient: (ingredientType) => dispatch(actions.addIngredient(ingredientType)),
-  onRemoveIngredient: (ingredientType) => dispatch(actions.removeIngredient(ingredientType)),
-  initIngredients: () => dispatch(actions.initIngredients()),
-  getIngredientPrices: () => dispatch(actions.getIngredientsPrices()),
-  invalidateUser: (route) => dispatch(actions.invalidateUser(route))
-});
-
-
-export default connect(mapStateToProps, mapDispatchToprops)(withErrorHandler(burgerBuilder, axios));
+export default (withErrorHandler(burgerBuilder, axios));
 
 burgerBuilder.propTypes = {
   ...routerTypes
