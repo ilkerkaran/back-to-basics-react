@@ -1,10 +1,12 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import NavItem from './NavigationItem/NavigationItem';
 import './NavigationItems.css';
 
-const navigaitonItems = ({ isAuthenticated }) => {
+const navigaitonItems = () => {
+  const isAuthenticated = useSelector((state) => !!state.auth.token);
+
   const securedNavItems = (
     <>
     <NavItem link="/burgerbuilder">
@@ -29,12 +31,7 @@ const navigaitonItems = ({ isAuthenticated }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  isAuthenticated: !!state.auth.token
-
-});
-
-export default connect(mapStateToProps)(navigaitonItems);
+export default navigaitonItems;
 
 navigaitonItems.propTypes = {
   isAuthenticated: PropTypes.bool

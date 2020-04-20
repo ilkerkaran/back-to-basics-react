@@ -1,10 +1,13 @@
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { logout as logoutAction } from '../../store/actions/actionCreators';
 
-const logout = ({ onLogout }) => {
+const logout = () => {
+  const dispatch = useDispatch();
+  const onLogout = () => dispatch(logoutAction());
+
   useEffect(() => {
   }, []);
 
@@ -12,12 +15,7 @@ const logout = ({ onLogout }) => {
   return (<Redirect to="/burgerbuilder" />);
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  onLogout: () => dispatch(logoutAction())
-});
-
-
-export default connect(null, mapDispatchToProps)(logout);
+export default logout;
 
 logout.propTypes = {
   onLogout: PropTypes.func

@@ -1,22 +1,27 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Redirect, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Form from '../../components/UI/Form/Form';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler';
 import axios from '../../axios-orders';
-import { signIn as signInAction, signUp as signUpAction, signInSuccess } from '../../store/actions/actionCreators';
+import { signIn as signInAction, signUp as signUpAction } from '../../store/actions/actionCreators';
 
-const auth = (props) => {
+const auth = ({
+  isSignUp
+}) => {
+  // state
   const {
     loading,
-    onSignIn,
-    onSignUp,
-    isSignUp,
     token,
-    redirectTo
-  } = props;
+    redirectAfterSignin
+  } = useSelector((state) => state.auth);
+
+  // dispatch
+  const dispatch = useDispatch();
+  const onSignIn = (username, password) => dispatch(signInAction(username, password));
+  const onSignUp = (username, password) => dispatch(signUpAction(username, password));
 
   const formInputConfig = [
     {
@@ -48,23 +53,12 @@ const auth = (props) => {
   <br />
 </div>);
 
-  const redirect = (<Redirect to={redirectTo}/>);
+  const redirect = (<Redirect to={redirectAfterSignin}/>);
   return (token ? redirect : signinForm);
 };
 
-const mapStateToProps = (state) => ({
-  loading: state.auth.loading,
-  token: state.auth.token,
-  redirectTo: state.auth.redirectAfterSignin
-});
 
-const mapDispatchToProps = (dispatch) => ({
-  success: () => dispatch(signInSuccess('hi', 'token', new Date(new Date().getTime() + 3600 * 1000))),
-  onSignIn: (username, password) => dispatch(signInAction(username, password)),
-  onSignUp: (username, password) => dispatch(signUpAction(username, password))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(withErrorHandler(auth, axios)));
+export default withRouter(withErrorHandler(auth, axios));
 
 auth.propTypes = {
   isSignUp: PropTypes.bool,
